@@ -34,5 +34,41 @@ namespace WorkoutTracker.BAL
                 return result;
             }
         }
+
+        public bool UpdateWorkoutCategory(int id, WorkoutCategory category)
+        {
+            int result = 0;
+
+            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
+            {
+                var catg = unitOfWork.WorkoutCategory.Get(id);
+
+                if(catg != null)
+                {
+                    catg.CategoryName = category.CategoryName;
+                    result = unitOfWork.Complete();
+                }
+
+                return result == 1;
+            }
+        }
+
+        public bool DeleteWorkoutCategory(int id)
+        {
+            int result = 0;
+
+            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
+            {
+                var catg = unitOfWork.WorkoutCategory.Get(id);
+
+                if (catg != null)
+                {
+                    unitOfWork.WorkoutCategory.Remove(catg);
+                    result = unitOfWork.Complete();
+                }
+
+                return result == 1;
+            }
+        }
     }
 }
