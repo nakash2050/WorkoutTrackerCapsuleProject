@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.BAL", "Worko
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkoutTracker.API", "WorkoutTracker.API", "{B6C031AE-8B00-4A88-8E08-3670E9E6E6BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.API", "WorkoutTracker.API\Workout.API\WorkoutTracker.API.csproj", "{ABEC2B3B-4E39-4F8D-A4D1-CC3810077795}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutTracker.API", "WorkoutTracker.API\WorkoutTracker.API.csproj", "{ABEC2B3B-4E39-4F8D-A4D1-CC3810077795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
