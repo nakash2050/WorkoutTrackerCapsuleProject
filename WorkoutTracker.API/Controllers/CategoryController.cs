@@ -1,16 +1,17 @@
 ﻿using System.Web.Http;
 using WorkoutTracker.BAL;
 using WorkoutTracker.Entities;
+using WorkoutTracker.Entities.DTO;
 
 namespace WorkoutTracker.API.Controllers
 {
-    public class WorkoutCategoryController : ApiController
+    public class CategoryController : ApiController
     {
-        private readonly WorkoutCategoryBAL _categoryBAL;
+        private readonly CategoryBAL _categoryBAL;
 
-        public WorkoutCategoryController()
+        public CategoryController()
         {
-            _categoryBAL = new WorkoutCategoryBAL();
+            _categoryBAL = new CategoryBAL();
         }
                 
         public IHttpActionResult Get()
@@ -25,9 +26,12 @@ namespace WorkoutTracker.API.Controllers
             return Ok(result);
         }
 
-        public IHttpActionResult Post(WorkoutCategory category)
+        public IHttpActionResult Post(CategoryDTO categoryDTO)
         {
-            var result = _categoryBAL.AddWorkoutCategory(category);
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var result = _categoryBAL.AddWorkoutCategory(categoryDTO);
             return Ok(result);
         }
 

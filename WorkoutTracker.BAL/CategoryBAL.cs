@@ -1,14 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using WorkoutTracker.DAL;
+using System.Linq;
 using WorkoutTracker.DAL.Repositories;
 using WorkoutTracker.Entities;
+using WorkoutTracker.Entities.DTO;
 
 namespace WorkoutTracker.BAL
 {
-    public class WorkoutCategoryBAL
+    public class CategoryBAL
     {
-        public bool AddWorkoutCategory(WorkoutCategory category)
+        public CategoryBAL()
         {
+        }
+
+        public bool AddWorkoutCategory(CategoryDTO categoryDTO)
+        {
+            var category = Mapper.Map<WorkoutCategory>(categoryDTO);
+
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
                 unitOfWork.WorkoutCategory.Add(category);
@@ -26,11 +35,11 @@ namespace WorkoutTracker.BAL
             }
         }
 
-        public IEnumerable<WorkoutCategory> GetAllWorkoutCategories()
+        public IEnumerable<CategoryDTO> GetAllWorkoutCategories()
         {
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var result = unitOfWork.WorkoutCategory.GetAll();
+                var result = unitOfWork.WorkoutCategory.GetAll().Select(Mapper.Map<WorkoutCategory, CategoryDTO>);                
                 return result;
             }
         }

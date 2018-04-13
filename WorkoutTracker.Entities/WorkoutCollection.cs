@@ -12,6 +12,7 @@ namespace WorkoutTracker.Entities
 
         [Column("workout_title", TypeName = "varchar")]
         [StringLength(128)]
+        [Required]
         public string WorkoutTitle { get; set; }
 
         [Column("workout_note", TypeName = "varchar")]
