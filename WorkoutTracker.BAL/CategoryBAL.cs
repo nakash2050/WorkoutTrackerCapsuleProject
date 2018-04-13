@@ -26,12 +26,13 @@ namespace WorkoutTracker.BAL
             }
         }
 
-        public WorkoutCategory GetWorkoutCategory(int id)
+        public CategoryDTO GetWorkoutCategory(int id)
         {
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
                 var result = unitOfWork.WorkoutCategory.Get(id);
-                return result;
+                var category = Mapper.Map<CategoryDTO>(result);
+                return category;
             }
         }
 
@@ -44,17 +45,18 @@ namespace WorkoutTracker.BAL
             }
         }
 
-        public bool UpdateWorkoutCategory(int id, WorkoutCategory category)
+        public bool UpdateWorkoutCategory(int id, CategoryDTO category)
         {
             int result = 0;
 
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var catg = unitOfWork.WorkoutCategory.Get(id);
+                var categoryInDB = unitOfWork.WorkoutCategory.Get(id);
 
-                if(catg != null)
+                if(categoryInDB != null)
                 {
-                    catg.CategoryName = category.CategoryName;
+                    category.CategoryId = id;
+                    Mapper.Map(category, categoryInDB);                    
                     result = unitOfWork.Complete();
                 }
 

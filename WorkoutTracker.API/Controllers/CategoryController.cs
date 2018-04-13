@@ -23,6 +23,10 @@ namespace WorkoutTracker.API.Controllers
         public IHttpActionResult Get(int id)
         {
             var result = _categoryBAL.GetWorkoutCategory(id);
+
+            if (result == null)
+                return NotFound();
+
             return Ok(result);
         }
 
@@ -35,9 +39,9 @@ namespace WorkoutTracker.API.Controllers
             return Ok(result);
         }
 
-        public IHttpActionResult Put(int id, WorkoutCategory workout)
+        public IHttpActionResult Put(int id, CategoryDTO category)
         {
-            var result = _categoryBAL.UpdateWorkoutCategory(id, workout);
+            var result = _categoryBAL.UpdateWorkoutCategory(id, category);
             return Ok(result);
         }
 
