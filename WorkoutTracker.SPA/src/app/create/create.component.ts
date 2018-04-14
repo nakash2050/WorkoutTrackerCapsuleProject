@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-//import { TrackerService } from '../_services/tracker.service';
 import { Category } from '../_models/category';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -7,6 +6,8 @@ import { CategoryComponent } from './../category/category.component';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/combineLatest';
+import { CategoryService } from './../_services/category.service';
+import { WorkoutService } from './../_services/workout.service';
 
 @Component({
   selector: 'app-create',
@@ -22,13 +23,15 @@ export class CreateComponent implements OnInit {
   isWorkoutAdded: boolean;
 
   constructor(
-    //private trackerService: TrackerService,
+    private workoutService: WorkoutService,
+    private categoryService: CategoryService,
     private modalService: BsModalService,
     private changeDetection: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    //this.categories = this.trackerService.getCategories();
+    this.categoryService.getCategories()
+      .subscribe(response => this.categories = response);
   }
 
   addCalories() {
@@ -48,7 +51,8 @@ export class CreateComponent implements OnInit {
 
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        //this.categories = this.trackerService.getCategories();
+        this.categoryService.getCategories()
+          .subscribe(response => this.categories = response);
         this.unsubscribe();
       })
     );
@@ -66,7 +70,10 @@ export class CreateComponent implements OnInit {
   }
 
   submit(form) {
-    //this.isWorkoutAdded = this.trackerService.addWorkout(form.value).length > 0;
+    this.workoutService.addWorkout(form.value)
+      .subscribe(
+        response => this.isWorkoutAdded = response
+      );
     form.reset();
   }
 }

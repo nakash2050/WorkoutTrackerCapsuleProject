@@ -30,8 +30,6 @@ export class DataService {
     }
 
     update(url: string, request: any) {
-        console.log(this.baseUrl + url)
-        console.log(JSON.stringify(request));
         return this.http.put(this.baseUrl + url, request)
             .map(response => response.json())
             .catch(this.handleError);
@@ -46,11 +44,9 @@ export class DataService {
     private handleError(error: Response) {
         if (error) {
             switch (error.status) {
-                case 400:
-                    console.log(error);
+                case 400:                   
                     return Observable.throw(new BadRequestError(error));
-                case 401:
-                    console.log(error);
+                case 401:                    
                     return Observable.throw(new UnauthorizedError(error));
             }
         }

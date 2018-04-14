@@ -5,18 +5,18 @@
     <form #form="ngForm" (ngSubmit)="form">
       <div class="form-group" [class.has-error]="title.touched && title.errors?.required">
         <label for="title" class="control-label">Title</label>
-        <input type="text" class="form-control" id="title" name="title" #title="ngModel" ngModel required>
+        <input type="text" class="form-control" id="workoutTitle" name="workoutTitle" #title="ngModel" ngModel required>
         <span *ngIf="title.touched && title.errors?.required" class="help-block">Please enter a Title</span>
       </div>
       <div class="form-group" [class.has-error]="note.touched && note.errors?.required">
         <label for="title" class="control-label">Note</label>
-        <textarea class="form-control" id="note" name="note" #note="ngModel" ngModel required></textarea>
+        <textarea class="form-control" id="workoutNote" name="workoutNote" #note="ngModel" ngModel required></textarea>
         <span *ngIf="note.touched && note.errors?.required" class="help-block">Please enter Note</span>
       </div>
       <div class="form-group" [class.has-error]="cals.touched && cals.errors?.required">
         <label for="title" class="control-label">Calories Burnt Per Minute</label>
         <div class="form-inline">
-          <input type="number" class="form-control" id="calories" name="calories" #cals="ngModel" [(ngModel)]="calories" required>
+          <input type="number" class="form-control" id="caloriesBurntPerMin" name="caloriesBurntPerMin" #cals="ngModel" [(ngModel)]="calories" required>
           <button class="btn btn-md btn-primary" (click)="addCalories()">
             <span class="glyphicon glyphicon-plus"></span>
           </button>
@@ -29,9 +29,9 @@
       <div class="form-group" [class.has-error]="category.touched && category.errors?.required">
         <label for="title" class="control-label">Category</label>
         <div class="form-inline">
-          <select name="category" id="category" class="form-control" ngModel #category="ngModel" style="width:90%" required>
+          <select name="categoryId" id="categoryId" class="form-control" ngModel #category="ngModel" style="width:90%" required>
             <option value="">select category</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</option>
+            <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.categoryName }}</option>
           </select>
           <button class="btn btn-md btn-primary" (click)="openModalWithComponent()">
             <span class="glyphicon glyphicon-plus"></span>

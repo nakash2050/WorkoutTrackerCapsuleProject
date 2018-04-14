@@ -1,7 +1,7 @@
 export interface Workout {
-    id: number;
-    title: string;
-    note: string;
+    workoutId: number;
+    workoutTitle: string;
+    workoutNote: string;
     startDate: string
     startTime: string;
     endDate: string;    

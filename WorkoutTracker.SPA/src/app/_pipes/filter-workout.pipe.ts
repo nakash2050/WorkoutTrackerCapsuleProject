@@ -16,7 +16,7 @@ export class FilterWorkoutPipe implements PipeTransform {
   }
 
   applyFilter(workout: Workout, filter: string): boolean {   
-      if(workout.title.toLowerCase().indexOf(filter) >= 0){
+      if(workout.workoutTitle.toLowerCase().indexOf(filter) >= 0){
         return true;
       } else {
         return false;

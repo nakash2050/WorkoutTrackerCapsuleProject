@@ -7,7 +7,7 @@ namespace WorkoutTracker.Entities.DTO
         public int WorkoutId { get; set; }
 
         [Required]
-        [StringLength(128)]
+        [StringLength(128)]        
         public string WorkoutTitle { get; set; }
 
         [StringLength(256)]

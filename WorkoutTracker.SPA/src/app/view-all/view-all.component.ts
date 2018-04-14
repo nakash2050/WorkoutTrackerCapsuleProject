@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Workout } from '../_models/workout';
-//import { TrackerService } from '../_services/tracker.service';
 import { Router } from '@angular/router';
+import { WorkoutService } from './../_services/workout.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-view-all',
@@ -13,12 +14,13 @@ export class ViewAllComponent implements OnInit {
   workouts: Workout[] = [];
 
   constructor(
-    //private trackerService: TrackerService,
+    private workoutService: WorkoutService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    //this.workouts = this.trackerService.getWorkouts();
+    this.workoutService.getAllWorkouts()
+      .subscribe(response => this.workouts = response);
   }
 
   editWorkout(id) {

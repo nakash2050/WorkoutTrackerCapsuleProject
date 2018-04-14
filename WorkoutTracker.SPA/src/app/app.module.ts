@@ -17,6 +17,7 @@ import { StartWorkoutComponent } from './start-workout/start-workout.component';
 import { EndWorkoutComponent } from './end-workout/end-workout.component';
 
 import { CategoryService } from './_services/category.service';
+import { WorkoutService } from './_services/workout.service';
 
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { ChartsModule } from 'ng2-charts';
@@ -56,7 +57,8 @@ const routes: Routes = [
   ],
   providers: [
     BsModalService,
-    CategoryService
+    CategoryService,
+    WorkoutService
   ],
   bootstrap: [AppComponent]
 })

@@ -16,6 +16,6 @@ export class WorkoutFilterPipe implements PipeTransform {
   }
 
   applyFiler(workout: Workout, filter: string) {
-    return workout.title.trim().toLowerCase().indexOf(filter) >= 0;
+    return workout.workoutTitle.trim().toLowerCase().indexOf(filter) >= 0;
   }
 }
