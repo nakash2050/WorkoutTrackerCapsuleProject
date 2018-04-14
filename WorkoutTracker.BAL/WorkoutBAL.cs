@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using WorkoutTracker.DAL;
 using WorkoutTracker.DAL.Repositories;
 using WorkoutTracker.Entities;
@@ -8,55 +8,51 @@ using WorkoutTracker.Entities.DTO;
 
 namespace WorkoutTracker.BAL
 {
-    public class CategoryBAL
+    public class WorkoutBAL
     {
-        public CategoryBAL()
+        public bool AddWorkout(WorkoutDTO workoutDTO)
         {
-        }
-
-        public bool AddWorkoutCategory(CategoryDTO categoryDTO)
-        {
-            var category = Mapper.Map<WorkoutCategory>(categoryDTO);
+            var workout = Mapper.Map<WorkoutCollection>(workoutDTO);
 
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                unitOfWork.WorkoutCategory.Add(category);
+                unitOfWork.WorkoutCollection.Add(workout);
                 var result = unitOfWork.Complete();
                 return result == 1;
             }
         }
 
-        public CategoryDTO GetWorkoutCategory(int id)
+        public IEnumerable<WorkoutDTO> GetAllWorkouts()
         {
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var result = unitOfWork.WorkoutCategory.Get(id);
-                var category = Mapper.Map<CategoryDTO>(result);
-                return category;
-            }
-        }
-
-        public IEnumerable<CategoryDTO> GetAllWorkoutCategories()
-        {
-            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
-            {
-                var result = unitOfWork.WorkoutCategory.GetAll().Select(Mapper.Map<WorkoutCategory, CategoryDTO>);
+                var result = unitOfWork.WorkoutCollection.GetAll().Select(Mapper.Map<WorkoutCollection, WorkoutDTO>);
                 return result;
             }
         }
 
-        public bool UpdateWorkoutCategory(int id, CategoryDTO categoryDTO)
+        public WorkoutDTO GetWorkout(int id)
+        {
+            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
+            {
+                var result = unitOfWork.WorkoutCollection.Get(id);
+                var workout = Mapper.Map<WorkoutDTO>(result);
+                return workout;
+            }
+        }
+
+        public bool UpdateWorkout(int id, WorkoutDTO workoutDTO)
         {
             int result = 0;
 
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var categoryInDB = unitOfWork.WorkoutCategory.Get(id);
+                var workoutInDB = unitOfWork.WorkoutCollection.Get(id);
 
-                if (categoryInDB != null)
+                if (workoutInDB != null)
                 {
-                    categoryDTO.CategoryId = id;
-                    Mapper.Map(categoryDTO, categoryInDB);
+                    workoutDTO.WorkoutId = id;
+                    Mapper.Map(workoutDTO, workoutInDB);
                     result = unitOfWork.Complete();
                 }
 
@@ -64,17 +60,17 @@ namespace WorkoutTracker.BAL
             }
         }
 
-        public bool DeleteWorkoutCategory(int id)
+        public bool DeleteWorkout(int id)
         {
             int result = 0;
 
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var catg = unitOfWork.WorkoutCategory.Get(id);
+                var workoutInDB = unitOfWork.WorkoutCollection.Get(id);
 
-                if (catg != null)
+                if (workoutInDB != null)
                 {
-                    unitOfWork.WorkoutCategory.Remove(catg);
+                    unitOfWork.WorkoutCollection.Remove(workoutInDB);
                     result = unitOfWork.Complete();
                 }
 

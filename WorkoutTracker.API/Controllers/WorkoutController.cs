@@ -1,28 +1,32 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using WorkoutTracker.BAL;
-using WorkoutTracker.Entities;
 using WorkoutTracker.Entities.DTO;
 
 namespace WorkoutTracker.API.Controllers
 {
-    public class CategoryController : ApiController
+    public class WorkoutController : ApiController
     {
-        private readonly CategoryBAL _categoryBAL;
+        private readonly WorkoutBAL _workoutBAL;
 
-        public CategoryController()
+        public WorkoutController()
         {
-            _categoryBAL = new CategoryBAL();
+            _workoutBAL = new WorkoutBAL();
         }
-                
+
         public IHttpActionResult Get()
         {
-            var result = _categoryBAL.GetAllWorkoutCategories();
+            var result = _workoutBAL.GetAllWorkouts();
             return Ok(result);
         }
 
         public IHttpActionResult Get(int id)
         {
-            var result = _categoryBAL.GetWorkoutCategory(id);
+            var result = _workoutBAL.GetWorkout(id);
 
             if (result == null)
                 return NotFound();
@@ -30,27 +34,27 @@ namespace WorkoutTracker.API.Controllers
             return Ok(result);
         }
 
-        public IHttpActionResult Post(CategoryDTO categoryDTO)
+        public IHttpActionResult Post(WorkoutDTO workoutDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = _categoryBAL.AddWorkoutCategory(categoryDTO);
+            var result = _workoutBAL.AddWorkout(workoutDTO);
             return Ok(result);
         }
 
-        public IHttpActionResult Put(int id, CategoryDTO categoryDTO)
+        public IHttpActionResult Put(int id, WorkoutDTO workoutDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = _categoryBAL.UpdateWorkoutCategory(id, categoryDTO);
+            var result = _workoutBAL.UpdateWorkout(id, workoutDTO);
             return Ok(result);
         }
 
         public IHttpActionResult Delete(int id)
         {
-            var result = _categoryBAL.DeleteWorkoutCategory(id);
+            var result = _workoutBAL.DeleteWorkout(id);
             return Ok(result);
         }
     }

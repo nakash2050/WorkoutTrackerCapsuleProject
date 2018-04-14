@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CategoryBAL.cs" />
+    <Compile Include="WorkoutBAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkoutTracker.DAL\WorkoutTracker.DAL.csproj">
