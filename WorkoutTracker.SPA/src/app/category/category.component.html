@@ -11,7 +11,7 @@
   <form #form="ngForm" (ngSubmit)="form">
     <div class="form-inline" [class.has-error]="category.touched && category.errors?.required">
       <div>
-        <input type="text" name="title" #category="ngModel" [(ngModel)]="mCategory" class="form-control" style="width:90%" placeholder="Category"
+        <input type="text" name="categoryName" #category="ngModel" [(ngModel)]="mCategory" class="form-control" style="width:90%" placeholder="Category"
           required>
         <button class="btn btn-md btn-primary" (click)="submit(form)" [disabled]="category.invalid">
           <span class="glyphicon glyphicon-plus"></span>

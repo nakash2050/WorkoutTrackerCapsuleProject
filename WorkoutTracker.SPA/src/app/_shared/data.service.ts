@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw'
 import { UnauthorizedError } from './unauthorized-error';
 import { environment } from '../../environments/environment';
+import { sendRequest } from 'selenium-webdriver/http';
 
 @Injectable()
 export class DataService {
@@ -16,14 +17,28 @@ export class DataService {
         this.baseUrl = environment.baseApiUrl;
     }
 
-    get(method: string) {
-        return this.http.get(this.baseUrl + method)
+    get(url: string) {
+        return this.http.get(this.baseUrl + url)
             .map(response => response.json())
             .catch(this.handleError);
     }
 
-    post(method: string, request: any) {
-        return this.http.post(this.baseUrl + method, request)
+    post(url: string, request: any) {
+        return this.http.post(this.baseUrl + url, request)
+            .map(response => response.json())
+            .catch(this.handleError);
+    }
+
+    update(url: string, request: any) {
+        console.log(this.baseUrl + url)
+        console.log(JSON.stringify(request));
+        return this.http.put(this.baseUrl + url, request)
+            .map(response => response.json())
+            .catch(this.handleError);
+    }
+
+    delete(url: string) {
+        return this.http.delete(this.baseUrl + url)
             .map(response => response.json())
             .catch(this.handleError);
     }
@@ -32,8 +47,10 @@ export class DataService {
         if (error) {
             switch (error.status) {
                 case 400:
+                    console.log(error);
                     return Observable.throw(new BadRequestError(error));
                 case 401:
+                    console.log(error);
                     return Observable.throw(new UnauthorizedError(error));
             }
         }

@@ -4,6 +4,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Form, FormGroup } from '@angular/forms';
 import { CategoryService } from './../_services/category.service';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-category',
@@ -27,12 +28,19 @@ export class CategoryComponent implements OnInit {
       .subscribe(response => this.categories = <Array<Category>>response);
   }
 
-  deleteCategory(category) {
-    //this.categories = this.trackerService.deleteCategory(category);
+  deleteCategory(category: Category) {
+    this.categoryService.deleteCategory(category.categoryId)
+      .subscribe(response => {
+        if (response) {
+          this.categories = _.without(this.categories, _.findWhere(this.categories, category));
+        }
+      });
   }
 
   submit(category) {
-    //this.categories = this.trackerService.addCategory(category.value);
+    this.categoryService.addCategory(category.value)
+      .subscribe(response => this.categories = response);
+
     category.reset();
   }
 
@@ -42,7 +50,9 @@ export class CategoryComponent implements OnInit {
     if (!isEdit) {
       document.getElementById('spn' + category.categoryId.toString()).focus();
     } else {
-      //this.trackerService.updateCategory(category);
+      this.categoryService.updateCategory(category)
+        .subscribe(resp => resp, error => {
+        });
     }
   }
 }
