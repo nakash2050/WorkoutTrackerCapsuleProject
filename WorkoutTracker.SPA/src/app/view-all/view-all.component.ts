@@ -3,6 +3,7 @@ import { Workout } from '../_models/workout';
 import { Router } from '@angular/router';
 import { WorkoutService } from './../_services/workout.service';
 import { Subscription } from 'rxjs/Subscription';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-view-all',
@@ -28,7 +29,12 @@ export class ViewAllComponent implements OnInit {
   }
 
   deleteWorkout(workout: Workout) {
-    //this.workouts = this.trackerService.deleteWorkout(workout);
+    this.workoutService.deleteWorkout(workout.workoutId)
+      .subscribe(response => {
+        if (response) {
+          this.workouts = _.without(this.workouts, _.findWhere(this.workouts, workout));
+        }
+      });
   }
 
   start(id) {

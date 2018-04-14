@@ -1,4 +1,5 @@
-﻿using WorkoutTracker.Entities;
+﻿using System.Linq;
+using WorkoutTracker.Entities;
 using WorkoutTracker.IRepositories;
 
 namespace WorkoutTracker.DAL.Repositories
@@ -17,6 +18,11 @@ namespace WorkoutTracker.DAL.Repositories
             base(context)
         {
 
+        }
+
+        public WorkoutActive GetWorkoutByWorkoutId(int id)
+        {
+            return WorkoutTrackerContext.WorkoutActive.Where(workout => workout.WorkoutId == id).FirstOrDefault();
         }
     }
 }

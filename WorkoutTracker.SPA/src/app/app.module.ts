@@ -21,14 +21,15 @@ import { WorkoutService } from './_services/workout.service';
 
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { ChartsModule } from 'ng2-charts';
+import { WorkoutResolver } from './_resolvers/workout.resolver';
 
 const routes: Routes = [
   { path: 'viewall', component: ViewAllComponent },
   { path: 'create', component: CreateComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'track', component: TrackComponent },
-  { path: 'editworkout/:id', component: EditWorkoutComponent },
-  { path: 'startworkout/:id', component: StartWorkoutComponent },
+  { path: 'editworkout/:id', component: EditWorkoutComponent, resolve: { workout: WorkoutResolver } },
+  { path: 'startworkout/:id', component: StartWorkoutComponent, resolve: { workout: WorkoutResolver } },
   { path: 'endworkout/:id', component: EndWorkoutComponent },
   { path: '**', redirectTo: 'viewall', pathMatch: 'full' }
 ];
@@ -58,7 +59,8 @@ const routes: Routes = [
   providers: [
     BsModalService,
     CategoryService,
-    WorkoutService
+    WorkoutService,
+    WorkoutResolver
   ],
   bootstrap: [AppComponent]
 })

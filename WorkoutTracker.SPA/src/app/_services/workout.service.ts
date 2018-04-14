@@ -9,13 +9,25 @@ export class WorkoutService extends DataService {
 
   constructor(http: Http) {
     super(http);
-  } 
+  }
 
   getAllWorkouts() {
     return this.get(this.controllerName);
   }
 
+  getWorkout(id) {
+    return this.get(this.controllerName + '/' + id);
+  }
+
   addWorkout(workout: Workout) {
     return this.post(this.controllerName, workout);
+  }
+
+  updateWorkout(workout: Workout){
+    return this.update(this.controllerName + '/' + workout.workoutId, workout);
+  }
+
+  deleteWorkout(id) {
+    return this.delete(this.controllerName + '/' + id);
   }
 }

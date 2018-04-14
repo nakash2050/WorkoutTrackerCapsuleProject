@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WorkoutTracker.Entities.DTO
 {
@@ -16,6 +17,5 @@ namespace WorkoutTracker.Entities.DTO
         public decimal CaloriesBurntPerMin { get; set; }
 
         public int CategoryId { get; set; }
-
     }
 }

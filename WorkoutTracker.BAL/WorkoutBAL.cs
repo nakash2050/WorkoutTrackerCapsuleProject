@@ -77,5 +77,30 @@ namespace WorkoutTracker.BAL
                 return result == 1;
             }
         }
+
+        public bool WorkoutActive(WorkoutActiveDTO workoutActiveDTO)
+        {
+            int result = 0;
+
+            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
+            {
+                WorkoutActive workoutActive = null;
+                var workoutInDB = unitOfWork.WorkoutActive.GetWorkoutByWorkoutId(workoutActiveDTO.WorkoutId);
+
+                if(workoutInDB == null)
+                {
+                    workoutActive = Mapper.Map<WorkoutActive>(workoutActiveDTO);
+                    unitOfWork.WorkoutActive.Add(workoutActive);
+                }
+                else
+                {
+                    workoutActiveDTO.WorkoutActiveId = workoutInDB.WorkoutActiveId;
+                    Mapper.Map(workoutActiveDTO, workoutInDB);
+                }
+
+                result = unitOfWork.Complete();
+                return result == 1;
+            }
+        }
     }
 }

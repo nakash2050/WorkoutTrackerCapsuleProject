@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Workout } from '../_models/workout';
-//import { TrackerService } from '../_services/tracker.service';
 import { keys } from '../_models/keys';
 import { Category } from '../_models/category';
 import { Observable } from 'rxjs/Observable';
@@ -9,6 +8,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/combineLatest';
 import { CategoryComponent } from '../category/category.component';
+import { WorkoutService } from './../_services/workout.service';
+import { CategoryService } from './../_services/category.service';
 
 @Component({
   selector: 'app-edit-workout',
@@ -19,26 +20,34 @@ export class EditWorkoutComponent implements OnInit {
 
   categories: Category[];
   workoutId: any;
-  workout: any;
+  workout: Workout;
   subscriptions: Subscription[] = [];
   bsModalRef: BsModalRef;
 
   constructor(
-    //private trackerService: TrackerService,
+    private workoutService: WorkoutService,
+    private categoryService: CategoryService,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: BsModalService,
     private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
-    //this.categories = this.trackerService.getCategories();
-    this.workoutId = this.route.snapshot.params.id;
-    //this.workout = this.trackerService.get(keys.WORKOUTS, this.workoutId);
+    this.categoryService.getCategories()
+      .subscribe(response => this.categories = response);
+
+    this.route.data.subscribe(data => {
+      this.workout = data['workout'];
+    });
   }
 
   update(workout) {
-    //this.trackerService.update(keys.WORKOUTS, workout);
-    this.cancel();
+    this.workoutService.updateWorkout(workout)
+      .subscribe(response => {
+        if (response) {
+          this.router.navigate(['/viewall']);
+        }
+      });
   }
 
   cancel() {
@@ -52,7 +61,9 @@ export class EditWorkoutComponent implements OnInit {
 
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        //this.categories = this.trackerService.getCategories();
+        this.categoryService.getCategories()
+          .subscribe(response => this.categories = response);
+
         this.unsubscribe();
       })
     );

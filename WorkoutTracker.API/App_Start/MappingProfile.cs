@@ -12,6 +12,8 @@ namespace WorkoutTracker.API.App_Start
             CreateMap<WorkoutCategory, CategoryDTO>();
             CreateMap<WorkoutDTO, WorkoutCollection>();
             CreateMap<WorkoutCollection, WorkoutDTO>();
+            CreateMap<WorkoutActive, WorkoutActiveDTO>();
+            CreateMap<WorkoutActiveDTO, WorkoutActive>();
         }
     }
 }

@@ -4,11 +4,11 @@
   <div>
     <div class="form-group">
       <label for="title" class="control-label">Title</label>
-      <input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="workout.title" disabled>
+      <input type="text" class="form-control" id="title" name="title" #title="ngModel" [(ngModel)]="workout.workoutTitle" disabled>
     </div>
     <div class="form-group">
       <label for="title" class="control-label">Note</label>
-      <textarea class="form-control" id="note" name="note" #note="ngModel" [(ngModel)]="workout.note" disabled></textarea>
+      <textarea class="form-control" id="note" name="note" #note="ngModel" [(ngModel)]="workout.workoutNote" disabled></textarea>
     </div>
     <div class="form-inlne">
       <div class="form-group col-md-5" style="padding:0px">

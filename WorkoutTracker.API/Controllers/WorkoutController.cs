@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using WorkoutTracker.BAL;
 using WorkoutTracker.Entities.DTO;
 
 namespace WorkoutTracker.API.Controllers
 {
+    [RoutePrefix("api/workout")]
     public class WorkoutController : ApiController
     {
         private readonly WorkoutBAL _workoutBAL;
@@ -55,6 +51,28 @@ namespace WorkoutTracker.API.Controllers
         public IHttpActionResult Delete(int id)
         {
             var result = _workoutBAL.DeleteWorkout(id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("start")]
+        public IHttpActionResult StartWorkout(WorkoutActiveDTO workoutActiveDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var result = _workoutBAL.WorkoutActive(workoutActiveDTO);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("end")]
+        public IHttpActionResult EndWorkout(WorkoutActiveDTO workoutActiveDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var result = _workoutBAL.WorkoutActive(workoutActiveDTO);
             return Ok(result);
         }
     }

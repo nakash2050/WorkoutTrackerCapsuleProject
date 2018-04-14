@@ -21,8 +21,7 @@ export class StartWorkoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.workoutId = this.route.snapshot.params['id'];
-    //this.workout = this.trackerService.get(keys.WORKOUTS, this.workoutId);
+    this.route.data.subscribe(data => this.workout = data['workout']);
     this.workout.startDate = new Date().toLocaleDateString();
     this.workout.startTime = new Date().toLocaleTimeString('it-IT');
     this.workout.endDate = null;
