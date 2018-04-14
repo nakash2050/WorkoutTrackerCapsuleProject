@@ -6,5 +6,6 @@ export interface Workout {
     startTime: string;
     endDate: string;    
     endTime: string;
-    isStarted: boolean;
+    status: boolean;
+    comment: string;
 }

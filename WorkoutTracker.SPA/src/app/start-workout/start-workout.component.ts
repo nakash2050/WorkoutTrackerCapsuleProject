@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Workout } from '../_models/workout';
-//import { TrackerService } from '../_services/tracker.service';
 import { keys } from '../_models/keys';
+import { WorkoutService } from './../_services/workout.service';
 
 @Component({
   selector: 'app-start-workout',
@@ -15,7 +15,7 @@ export class StartWorkoutComponent implements OnInit {
   workout: Workout;
 
   constructor(
-    //private trackerService: TrackerService,
+    private workoutService: WorkoutService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -29,9 +29,13 @@ export class StartWorkoutComponent implements OnInit {
   }
 
   start(workout: Workout) {
-    workout.isStarted = true;
-    //this.trackerService.updateWorkout(workout);
-    this.cancel();
+    workout.status = true;
+    this.workoutService.startWorkout(workout)
+      .subscribe(response => {
+        if (response) {
+          this.router.navigate(['/viewall']);
+        }
+      });
   }
 
   cancel() {

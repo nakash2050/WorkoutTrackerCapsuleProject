@@ -23,11 +23,15 @@ export class WorkoutService extends DataService {
     return this.post(this.controllerName, workout);
   }
 
-  updateWorkout(workout: Workout){
+  updateWorkout(workout: Workout) {
     return this.update(this.controllerName + '/' + workout.workoutId, workout);
   }
 
   deleteWorkout(id) {
     return this.delete(this.controllerName + '/' + id);
+  }
+
+  startWorkout(workout: Workout) {
+    return this.post(this.controllerName + '/start', workout);
   }
 }

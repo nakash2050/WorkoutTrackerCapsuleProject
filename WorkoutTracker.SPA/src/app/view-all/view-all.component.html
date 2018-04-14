@@ -13,8 +13,8 @@
         <div class="workout-init">
           <button class="btn btn-primary btn-md" (click)="editWorkout(workout.workoutId)">Edit</button>
           <button class="btn btn-primary btn-md" (click)="deleteWorkout(workout)">Delete</button>
-          <button class="btn btn-success btn-md" [disabled]="workout.isStarted" (click)="start(workout.workoutId)">Start</button>
-          <button class="btn btn-danger btn-md" [disabled]="!workout.isStarted" (click)="end(workout.workoutId)">End</button>
+          <button class="btn btn-success btn-md" [disabled]="workout.status" (click)="start(workout.workoutId)">Start</button>
+          <button class="btn btn-danger btn-md" [disabled]="!workout.status" (click)="end(workout.workoutId)">End</button>
         </div>
       </div>
     </div>

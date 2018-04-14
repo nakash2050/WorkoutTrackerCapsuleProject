@@ -17,5 +17,7 @@ namespace WorkoutTracker.Entities.DTO
         public decimal CaloriesBurntPerMin { get; set; }
 
         public int CategoryId { get; set; }
+
+        public bool Status { get; set; }
     }
 }

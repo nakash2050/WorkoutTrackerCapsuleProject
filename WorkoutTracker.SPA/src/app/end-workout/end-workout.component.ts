@@ -28,7 +28,7 @@ export class EndWorkoutComponent implements OnInit {
   }
 
   end(workout: Workout) {
-    workout.isStarted = false;
+    workout.status = false;
     //this.trackerService.updateWorkout(workout);
     this.cancel();
   }

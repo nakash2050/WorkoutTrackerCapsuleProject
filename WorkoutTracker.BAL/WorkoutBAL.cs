@@ -26,7 +26,16 @@ namespace WorkoutTracker.BAL
         {
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var result = unitOfWork.WorkoutCollection.GetAll().Select(Mapper.Map<WorkoutCollection, WorkoutDTO>);
+                var workouts = unitOfWork.WorkoutCollection.GetAll();
+                var workoutActive = unitOfWork.WorkoutActive.GetAll();
+
+                var result = from w in workouts
+                                join a in workoutActive
+                                on w.WorkoutId equals a.WorkoutId
+                                into t
+                                from b in t.DefaultIfEmpty(new WorkoutActive())
+                                select new WorkoutDTO(){ WorkoutId = w.WorkoutId, WorkoutTitle = w.WorkoutTitle, Status = b.Status == null ? false : true };
+
                 return result;
             }
         }
