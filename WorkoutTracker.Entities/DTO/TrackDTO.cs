@@ -4,11 +4,11 @@ namespace WorkoutTracker.Entities.DTO
 {
     public class TrackDTO
     {
-        public int WorkoutTimeOfDay { get; set; }
+        public int TotalWorkoutTimeOfDay { get; set; }
 
-        public int WorkoutTimeOfWeek { get; set; }
+        public int TotalWorkoutTimeOfWeek { get; set; }
 
-        public int WorkoutTimeOfMonth { get; set; }
+        public int TotalWorkoutTimeOfMonth { get; set; }
 
         public IEnumerable<TotalCalories> TotalCaloriesBurntPerWeek { get; set; }
 

@@ -31,6 +31,7 @@ namespace WorkoutTracker.BAL
                              on w.WorkoutId equals a.WorkoutId
                              into t
                              from b in t.DefaultIfEmpty(new WorkoutActive())
+                             orderby w.WorkoutId descending
                              select new WorkoutDTO()
                              {
                                  WorkoutId = w.WorkoutId,
