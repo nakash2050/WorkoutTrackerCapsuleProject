@@ -10,10 +10,6 @@ namespace WorkoutTracker.BAL
 {
     public class CategoryBAL
     {
-        public CategoryBAL()
-        {
-        }
-
         public bool AddWorkoutCategory(CategoryDTO categoryDTO)
         {
             var category = Mapper.Map<WorkoutCategory>(categoryDTO);

@@ -12,7 +12,9 @@ namespace WorkoutTracker.DAL
         }
 
         public virtual DbSet<WorkoutCategory> WorkoutCategory { get; set; }
+
         public virtual DbSet<WorkoutCollection> WorkoutCollection { get; set; }
+
         public virtual DbSet<WorkoutActive> WorkoutActive { get; set; }
     }
 }

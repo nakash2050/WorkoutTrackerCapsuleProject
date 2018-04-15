@@ -138,6 +138,7 @@
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\WorkoutController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
