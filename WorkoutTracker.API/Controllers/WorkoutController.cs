@@ -61,7 +61,7 @@ namespace WorkoutTracker.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = _workoutBAL.WorkoutActive(workoutActiveDTO);
+            var result = _workoutBAL.StartWorkout(workoutActiveDTO);
             return Ok(result);
         }
 
@@ -72,7 +72,7 @@ namespace WorkoutTracker.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var result = _workoutBAL.WorkoutActive(workoutActiveDTO);
+            var result = _workoutBAL.EndWorkout(workoutActiveDTO);
             return Ok(result);
         }
     }

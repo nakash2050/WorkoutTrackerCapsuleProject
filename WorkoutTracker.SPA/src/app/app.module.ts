@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'track', component: TrackComponent },
   { path: 'editworkout/:id', component: EditWorkoutComponent, resolve: { workout: WorkoutResolver } },
   { path: 'startworkout/:id', component: StartWorkoutComponent, resolve: { workout: WorkoutResolver } },
-  { path: 'endworkout/:id', component: EndWorkoutComponent },
+  { path: 'endworkout/:id', component: EndWorkoutComponent, resolve: { workout: WorkoutResolver } },
   { path: '**', redirectTo: 'viewall', pathMatch: 'full' }
 ];
 

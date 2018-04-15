@@ -5,12 +5,12 @@
     <form #form="ngForm" (ngSubmit)="form">
       <div class="form-group" [class.has-error]="title.touched && title.errors?.required">
         <label for="title" class="control-label">Title</label>
-        <input type="text" class="form-control" id="workoutTitle" name="workoutTitle" #title="ngModel" ngModel required>
+        <input type="text" class="form-control" id="workoutTitle" name="workoutTitle" #title="ngModel" ngModel required maxlength="128">
         <span *ngIf="title.touched && title.errors?.required" class="help-block">Please enter a Title</span>
       </div>
       <div class="form-group" [class.has-error]="note.touched && note.errors?.required">
         <label for="title" class="control-label">Note</label>
-        <textarea class="form-control" id="workoutNote" name="workoutNote" #note="ngModel" ngModel required></textarea>
+        <textarea class="form-control" id="workoutNote" name="workoutNote" #note="ngModel" ngModel required maxlength="256"></textarea>
         <span *ngIf="note.touched && note.errors?.required" class="help-block">Please enter Note</span>
       </div>
       <div class="form-group" [class.has-error]="cals.touched && cals.errors?.required">

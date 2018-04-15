@@ -1,4 +1,8 @@
-﻿using WorkoutTracker.Entities;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using WorkoutTracker.Entities;
+using WorkoutTracker.Entities.DTO;
 using WorkoutTracker.IRepositories;
 
 namespace WorkoutTracker.DAL.Repositories
@@ -13,10 +17,10 @@ namespace WorkoutTracker.DAL.Repositories
             }
         }
 
-        public WorkoutCollectionRepository(WorkoutTrackerContext context) : 
+        public WorkoutCollectionRepository(WorkoutTrackerContext context) :
             base(context)
         {
-            
+
         }
     }
 }

@@ -26,15 +26,20 @@ namespace WorkoutTracker.BAL
         {
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var workouts = unitOfWork.WorkoutCollection.GetAll();
-                var workoutActive = unitOfWork.WorkoutActive.GetAll();
-
-                var result = from w in workouts
-                                join a in workoutActive
-                                on w.WorkoutId equals a.WorkoutId
-                                into t
-                                from b in t.DefaultIfEmpty(new WorkoutActive())
-                                select new WorkoutDTO(){ WorkoutId = w.WorkoutId, WorkoutTitle = w.WorkoutTitle, Status = b.Status == null ? false : true };
+                var result = from w in unitOfWork.WorkoutCollection.GetAll()
+                             join a in unitOfWork.WorkoutActive.GetAll()
+                             on w.WorkoutId equals a.WorkoutId
+                             into t
+                             from b in t.DefaultIfEmpty(new WorkoutActive())
+                             select new WorkoutDTO()
+                             {
+                                 WorkoutId = w.WorkoutId,
+                                 WorkoutTitle = w.WorkoutTitle,
+                                 WorkoutNote = w.WorkoutNote,
+                                 CaloriesBurntPerMin = w.CaloriesBurntPerMin,
+                                 CategoryId = w.CategoryId,
+                                 Status = b.Status.HasValue ? b.Status.Value : false
+                             };
 
                 return result;
             }
@@ -87,7 +92,7 @@ namespace WorkoutTracker.BAL
             }
         }
 
-        public bool WorkoutActive(WorkoutActiveDTO workoutActiveDTO)
+        public bool StartWorkout(WorkoutActiveDTO workoutActiveDTO)
         {
             int result = 0;
 
@@ -108,6 +113,27 @@ namespace WorkoutTracker.BAL
                 }
 
                 result = unitOfWork.Complete();
+                return result == 1;
+            }
+        }
+
+        public bool EndWorkout(WorkoutActiveDTO workoutActiveDTO)
+        {
+            int result = 0;
+
+            using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
+            {
+                var workoutInDB = unitOfWork.WorkoutActive.GetWorkoutByWorkoutId(workoutActiveDTO.WorkoutId);
+
+                if (workoutInDB != null)
+                {
+                    workoutInDB.EndDate = workoutActiveDTO.EndDate;
+                    workoutInDB.EndTime = workoutActiveDTO.EndTime;
+                    workoutInDB.Comment = workoutActiveDTO.Comment;
+                    workoutInDB.Status = workoutActiveDTO.Status;
+                    result = unitOfWork.Complete();
+                }
+
                 return result == 1;
             }
         }

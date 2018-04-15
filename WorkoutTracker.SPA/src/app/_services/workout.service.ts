@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService } from './../_shared/data.service';
-import { Workout } from '../_models/workout';
+import { Workout } from './../_models/workout';
 
 @Injectable()
 export class WorkoutService extends DataService {
@@ -33,5 +33,9 @@ export class WorkoutService extends DataService {
 
   startWorkout(workout: Workout) {
     return this.post(this.controllerName + '/start', workout);
+  }
+
+  endWorkout(workout: Workout) {
+    return this.post(this.controllerName + '/end', workout);
   }
 }
