@@ -30,11 +30,10 @@ namespace WorkoutTracker.DAL.Repositories
             return WorkoutTrackerContext.WorkoutActive.Where(workout => workout.WorkoutId == id).FirstOrDefault();
         }
 
-        public List<DurationInMinutes> GetWorkoutTimes()
+        public DataSet GetTotalWorkoutTimesReport()
         {
             DataSet ds = null;
-            List<DurationInMinutes> duration = null;
-            string commandText = "[dbo].[sp_GetWorkoutTimes]";
+            string commandText = "[dbo].[sp_GetTotalWorkoutTimesReport]";
 
             using (var db = new WorkoutTrackerContext())
             {
@@ -59,22 +58,42 @@ namespace WorkoutTracker.DAL.Repositories
                 {
                     db.Database.Connection.Close();
                 }
+            }
 
-                if (ds != null && ds.Tables.Count > 0)
+            return ds;
+        }
+
+        public DataSet GetTotalCaloriesReport()
+        {
+            DataSet ds = null;
+            string commandText = "[dbo].[sp_GetTotalCaloriesReport]";
+
+            using (var db = new WorkoutTrackerContext())
+            {
+                var cmd = db.Database.Connection.CreateCommand();
+                cmd.CommandText = commandText;
+
+                try
                 {
-                    var data = new List<DurationInMinutes>();
-                    foreach (DataTable dt in ds.Tables)
-                    {
-                        data.Add(dt.AsEnumerable().Select(row => new DurationInMinutes()
-                        { Duration = Convert.ToInt32(row["Duration"]), TotalTimeInMinutes = Convert.ToInt32(row["TotalTimeInMinutes"]) })
-                                                   .FirstOrDefault());
-                    }
+                    db.Database.Connection.Open();
+                    var reader = cmd.ExecuteReader();
 
-                    duration = data;
+                    ds = new DataSet();
+
+                    while (!reader.IsClosed && reader.HasRows)
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
+                        ds.Tables.Add(dt);
+                    }
+                }
+                finally
+                {
+                    db.Database.Connection.Close();
                 }
             }
 
-            return duration;
+            return ds;
         }
     }
 }

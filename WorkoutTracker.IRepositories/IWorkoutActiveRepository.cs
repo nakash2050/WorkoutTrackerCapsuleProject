@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using WorkoutTracker.Entities;
 
 namespace WorkoutTracker.IRepositories
@@ -7,6 +8,8 @@ namespace WorkoutTracker.IRepositories
     {
         WorkoutActive GetWorkoutByWorkoutId(int id);
 
-        List<DurationInMinutes> GetWorkoutTimes();
+        DataSet GetTotalWorkoutTimesReport();
+
+        DataSet GetTotalCaloriesReport();
     }
 }

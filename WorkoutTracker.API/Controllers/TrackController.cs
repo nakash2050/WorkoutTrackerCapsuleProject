@@ -14,7 +14,7 @@ namespace WorkoutTracker.API.Controllers
 
         public IHttpActionResult Get()
         {
-            var result = _trackBAL.GetWorkoutTimes();
+            var result = _trackBAL.GetTrackerReport();
             return Ok(result);
         }
     }

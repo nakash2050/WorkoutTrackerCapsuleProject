@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,22 +13,45 @@ namespace WorkoutTracker.BAL
 {
     public class TrackBAL
     {
-        public TrackDTO GetWorkoutTimes()
+        public TrackDTO GetTrackerReport()
         {
             TrackDTO trackDTO = null;
 
             using (var unitOfWork = new UnitOfWork(new WorkoutTrackerContext()))
             {
-                var workoutTimes = unitOfWork.WorkoutActive.GetWorkoutTimes();
-                if(workoutTimes != null && workoutTimes.Count() > 0)
+                trackDTO = new TrackDTO();
+                var wtDs = unitOfWork.WorkoutActive.GetTotalWorkoutTimesReport();
+
+                if (wtDs != null && wtDs.Tables.Count > 0)
                 {
-                    trackDTO = new TrackDTO()
-                    {
-                        WorkoutTimeOfDay = workoutTimes[0].TotalTimeInMinutes,
-                        WorkoutTimeOfWeek = workoutTimes[1].TotalTimeInMinutes,
-                        WorkoutTimeOfMonth = workoutTimes[2].TotalTimeInMinutes,
-                    };
+                    trackDTO.WorkoutTimeOfDay = Convert.ToInt32(wtDs.Tables[0].Rows[0]["TotalTimeInMinutes"]);
+                    trackDTO.WorkoutTimeOfWeek = wtDs.Tables[1] != null && wtDs.Tables[1].Rows.Count > 0 ? Convert.ToInt32(wtDs.Tables[1].Rows[0]["TotalTimeInMinutes"]) : 0;
+                    trackDTO.WorkoutTimeOfMonth = wtDs.Tables[2] != null && wtDs.Tables[2].Rows.Count > 0 ? Convert.ToInt32(wtDs.Tables[2].Rows[0]["TotalTimeInMinutes"]) : 0;
                 }
+
+
+                var dataSet = unitOfWork.WorkoutActive.GetTotalCaloriesReport();
+                if(dataSet != null && dataSet.Tables.Count > 0)
+                {
+                    DataTable dt = dataSet.Tables[0];
+                    trackDTO.TotalCaloriesBurntPerWeek = dt.AsEnumerable()
+                        .Select(row => new TotalCalories() { Duration = Convert.ToString(row["Duration"]), TotalCaloriesBurnt = Convert.ToString(row["TotalCaloriesBurnt"]) });
+
+                    if(dataSet.Tables.Count > 1)
+                    {
+                        dt = dataSet.Tables[1];
+                        trackDTO.TotalCaloriesBurntPerMonth = dt.AsEnumerable()
+                            .Select(row => new TotalCalories() { Duration = Convert.ToString(row["Duration"]), TotalCaloriesBurnt = Convert.ToString(row["TotalCaloriesBurnt"]) });
+                    }
+
+                    if (dataSet.Tables.Count > 2)
+                    {
+                        dt = dataSet.Tables[2];
+                        trackDTO.TotalCaloriesBurntPerYear = dt.AsEnumerable()
+                            .Select(row => new TotalCalories() { Duration = Convert.ToString(row["Duration"]), TotalCaloriesBurnt = Convert.ToString(row["TotalCaloriesBurnt"]) });
+                    }
+                }
+
             }
 
             return trackDTO;
