@@ -79,11 +79,26 @@ namespace WorkoutTracker.Tests
         }
 
         [TestMethod]
-        public void ValidateWorkoutCategoryModel_InvalidCategory_ReturnsFalse()
+        public void ValidateWorkoutCategoryModel_InvalidCategoryName_ReturnsFalse()
         {
             var categoryDTO = new CategoryDTO()
             {
                 CategoryName = string.Empty
+            };
+
+            var context = new System.ComponentModel.DataAnnotations.ValidationContext(categoryDTO, null, null);
+            var results = new List<ValidationResult>();
+            var isModelStateValid = Validator.TryValidateObject(categoryDTO, context, results, true);
+
+            Assert.IsFalse(isModelStateValid);
+        }
+
+        [TestMethod]
+        public void ValidateWorkoutCategoryModel_InvalidCategoryNameStringLength_ReturnsFalse()
+        {
+            var categoryDTO = new CategoryDTO()
+            {
+                CategoryName = "aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffggggg"
             };
 
             var context = new System.ComponentModel.DataAnnotations.ValidationContext(categoryDTO, null, null);
