@@ -24,7 +24,7 @@ namespace WorkoutTracker.BAL
 
                 if (wtDs != null && wtDs.Tables.Count > 0)
                 {
-                    trackDTO.TotalWorkoutTimeOfDay = Convert.ToInt32(wtDs.Tables[0].Rows[0]["TotalTimeInMinutes"]);
+                    trackDTO.TotalWorkoutTimeOfDay = wtDs.Tables[0].Rows.Count > 0 ? Convert.ToInt32(wtDs.Tables[0].Rows[0]["TotalTimeInMinutes"]) : 0;
                     trackDTO.TotalWorkoutTimeOfWeek = wtDs.Tables[1] != null && wtDs.Tables[1].Rows.Count > 0 ? Convert.ToInt32(wtDs.Tables[1].Rows[0]["TotalTimeInMinutes"]) : 0;
                     trackDTO.TotalWorkoutTimeOfMonth = wtDs.Tables[2] != null && wtDs.Tables[2].Rows.Count > 0 ? Convert.ToInt32(wtDs.Tables[2].Rows[0]["TotalTimeInMinutes"]) : 0;
                 }
