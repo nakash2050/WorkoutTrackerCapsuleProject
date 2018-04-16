@@ -69,6 +69,14 @@
     <Compile Include="Migrations\201804130623124_UpdatedWorkoutTitleOfWorkoutCollectionTableToRequired.Designer.cs">
       <DependentUpon>201804130623124_UpdatedWorkoutTitleOfWorkoutCollectionTableToRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804161840131_Add_sp_GetTotalWorkoutTimesReport.cs" />
+    <Compile Include="Migrations\201804161840131_Add_sp_GetTotalWorkoutTimesReport.Designer.cs">
+      <DependentUpon>201804161840131_Add_sp_GetTotalWorkoutTimesReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804161841521_Add_sp_GetTotalCaloriesReport.cs" />
+    <Compile Include="Migrations\201804161841521_Add_sp_GetTotalCaloriesReport.Designer.cs">
+      <DependentUpon>201804161841521_Add_sp_GetTotalCaloriesReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -97,6 +105,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804130623124_UpdatedWorkoutTitleOfWorkoutCollectionTableToRequired.resx">
       <DependentUpon>201804130623124_UpdatedWorkoutTitleOfWorkoutCollectionTableToRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161840131_Add_sp_GetTotalWorkoutTimesReport.resx">
+      <DependentUpon>201804161840131_Add_sp_GetTotalWorkoutTimesReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161841521_Add_sp_GetTotalCaloriesReport.resx">
+      <DependentUpon>201804161841521_Add_sp_GetTotalCaloriesReport.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
