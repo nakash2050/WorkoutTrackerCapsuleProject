@@ -11,7 +11,7 @@ CREATE PROCEDURE sp_GetTotalCaloriesReport
 AS
 BEGIN
 	--Day
-	SELECT SUBSTRING(Duration, 1, 3) Duration, SUM(CaloriesBurnt) TotalCaloriesBurnt FROM 
+	SELECT SUBSTRING(Duration, 1, 3) Duration, ISNULL(SUM(CaloriesBurnt),0) TotalCaloriesBurnt FROM 
 		(SELECT 
 			DATENAME(dw, start_date) Duration, 
 			(calories_burn_per_min * SUM(DATEDIFF(MINUTE, start_time, end_time))) CaloriesBurnt
@@ -23,7 +23,7 @@ BEGIN
 	GROUP BY DURATION
 
 	--Week
-	SELECT 'Week ' + CAST(Duration AS VARCHAR) Duration, SUM(CaloriesBurnt) TotalCaloriesBurnt FROM 
+	SELECT 'Week ' + CAST(Duration AS VARCHAR) Duration, ISNULL(SUM(CaloriesBurnt),0) TotalCaloriesBurnt FROM 
 		(SELECT 
 			DATEPART(WEEK, start_date)-DATEPART(WEEK, DATEADD(MM, DATEDIFF(MM,0, start_date), 0))+ 1 Duration, 
 			(calories_burn_per_min * SUM(DATEDIFF(MINUTE, start_time, end_time))) CaloriesBurnt
@@ -35,7 +35,7 @@ BEGIN
 	GROUP BY DURATION
 
 	--Year
-	SELECT 'Y' + CAST(Duration AS VARCHAR) Duration, SUM(CaloriesBurnt) TotalCaloriesBurnt FROM 
+	SELECT 'Y' + CAST(Duration AS VARCHAR) Duration, ISNULL(SUM(CaloriesBurnt),0) TotalCaloriesBurnt FROM 
 		(SELECT 
 			DATEPART(MONTH, start_date) Duration, 
 			(calories_burn_per_min * SUM(DATEDIFF(MINUTE, start_time, end_time))) CaloriesBurnt
