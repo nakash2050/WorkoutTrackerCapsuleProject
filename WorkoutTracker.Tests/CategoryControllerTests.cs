@@ -21,6 +21,7 @@ namespace WorkoutTracker.Tests
         {
             _categoryController = new CategoryController();
 
+            Mapper.Reset();
             Mapper.Initialize(config =>
             {
                 config.AddProfile<MappingProfile>();
