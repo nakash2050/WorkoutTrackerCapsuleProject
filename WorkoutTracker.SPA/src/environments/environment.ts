@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: 'http://localhost/WorkoutTracker.API/api/'
+  baseApiUrl: 'http://localhost:51865/api/'
 };
