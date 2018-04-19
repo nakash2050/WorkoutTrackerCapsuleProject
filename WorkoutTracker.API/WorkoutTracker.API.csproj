@@ -131,10 +131,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\WorkoutTrackerDemo.mdf" />
-    <Content Include="App_Data\WorkoutTrackerDemo_log.ldf">
-      <DependentUpon>WorkoutTrackerDemo.mdf</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -156,6 +152,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +164,9 @@
       <Project>{940AA074-16C2-46A9-B4C3-44747ECDFABD}</Project>
       <Name>WorkoutTracker.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\WorkoutTracker.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

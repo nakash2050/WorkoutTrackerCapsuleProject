@@ -22,7 +22,7 @@ export class StartWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => this.workout = data['workout']);
-    this.workout.startDate = new Date().toLocaleDateString();
+    this.workout.startDate = new Date().toISOString().split('T')[0];
     this.workout.startTime = new Date().toLocaleTimeString('it-IT');
     this.workout.endDate = null;
     this.workout.endTime = null;

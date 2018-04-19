@@ -1,5 +1,6 @@
 export interface Workout {
     workoutId: number;
+    categoryId: number;
     workoutTitle: string;
     workoutNote: string;
     startDate: string

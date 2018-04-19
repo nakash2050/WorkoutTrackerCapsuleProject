@@ -12,6 +12,7 @@ import * as _ from 'underscore';
 })
 export class ViewAllComponent implements OnInit {
 
+  public search: string;
   workouts: Workout[] = [];
 
   constructor(

@@ -9,8 +9,7 @@ import { ViewAllComponent } from "./view-all/view-all.component";
 import { CreateComponent } from "./create/create.component";
 import { TrackComponent } from "./track/track.component";
 import { CategoryComponent } from "./category/category.component";
-import { WorkoutFilterPipe } from "./_pipes/workout-filter.pipe";
-import { CategoryFilterPipe } from "./_pipes/category-filter.pipe";
+
 import { ContentEditableModelDirective } from "./_directives/content-editable-model.directive";
 import { EditWorkoutComponent } from "./edit-workout/edit-workout.component";
 import { StartWorkoutComponent } from "./start-workout/start-workout.component";
@@ -24,6 +23,9 @@ import { ModalModule, BsModalService } from "ngx-bootstrap/modal";
 import { ChartsModule } from "ng2-charts";
 import { WorkoutResolver } from "./_resolvers/workout.resolver";
 import { TrackResolver } from "./_resolvers/track.resolver";
+import { FilterWorkoutPipe } from "./_pipes/filter-workout.pipe";
+import { WorkoutFilterPipe } from "./_pipes/workout-filter.pipe";
+import { CategoryFilterPipe } from "./_pipes/category-filter.pipe";
 
 const routes: Routes = [
   { path: "viewall", component: ViewAllComponent },
@@ -59,12 +61,13 @@ const routes: Routes = [
     CreateComponent,
     TrackComponent,
     CategoryComponent,
-    WorkoutFilterPipe,
-    CategoryFilterPipe,
     ContentEditableModelDirective,
     EditWorkoutComponent,
     StartWorkoutComponent,
-    EndWorkoutComponent
+    EndWorkoutComponent,
+    FilterWorkoutPipe,
+    CategoryFilterPipe,
+    WorkoutFilterPipe
   ],
   imports: [
     BrowserModule,

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  baseApiUrl: 'http://localhost:51865/api/'
+  baseApiUrl: 'http://localhost/WT.API/api/'
 };

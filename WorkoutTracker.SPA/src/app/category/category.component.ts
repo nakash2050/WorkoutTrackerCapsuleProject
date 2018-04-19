@@ -13,6 +13,7 @@ import * as _ from 'underscore';
 })
 export class CategoryComponent implements OnInit {
 
+  search: string;
   categories: Array<Category>;
   mCategory: string;
   isValidRoute: boolean;
