@@ -165,5 +165,23 @@ namespace WorkoutTracker.Tests
 
             Assert.IsFalse(isModelStateValid);
         }
+
+        [TestMethod]
+        public void PerformanceTest_AddCategory_ReturnsTrue()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                var categoryDTO = new CategoryDTO()
+                {
+                    CategoryName = String.Format("Category_{0}", new Random().Next(0, 1000))
+                };
+
+                IHttpActionResult actionResult = _categoryController.Post(categoryDTO);
+                var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<CategoryDTO>>;
+
+                Assert.IsNotNull(contentResult);
+                Assert.IsNotNull(contentResult.Content);
+            }
+        }
     }
 }
